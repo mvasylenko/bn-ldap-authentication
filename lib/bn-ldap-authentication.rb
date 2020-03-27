@@ -2,7 +2,7 @@
 
 module LdapAuthenticator
     LDAP_ATTRIBUTE_MAPPING = {
-        'name' => [:cn],
+        'name' => [:displayName],
         'first_name' => [:givenName],
         'last_name' => [:sn],
         'email' => [:mail, :email, :userPrincipalName],
@@ -24,7 +24,7 @@ module LdapAuthenticator
 
         ldap.bind_as(
             base: provider_info[:base],
-            filter: "(#{provider_info[:uid]}=#{user_params[:username]})",
+            filter: "(&(#{provider_info[:uid]}=#{user_params[:username]})(#{provider_info[:filter]}))",
             password: user_params[:password]
         )
     end
