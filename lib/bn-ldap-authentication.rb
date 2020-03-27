@@ -24,7 +24,7 @@ module LdapAuthenticator
 
         ldap.bind_as(
             base: provider_info[:base],
-            filter: "(&(#{provider_info[:uid]}=#{user_params[:username]})(#{provider_info[:filter]}))",
+            filter: "(&(#{provider_info[:uid]}=#{user_params[:username]})#{provider_info[:filter]})",
             password: user_params[:password]
         )
     end
